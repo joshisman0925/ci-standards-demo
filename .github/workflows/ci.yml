@@ -57,7 +57,7 @@ jobs:
       run-python: true
       python-version: "3.12"
       run-dotnet: false
-      run-docker-build: true
-      run-hadolint: true
+      run-docker-build: false     # 暫關：公版 DOCKER_CONTEXT 環境變數與 Docker CLI 衝突，待公版修正後開回
+      run-hadolint: false
       run-actionlint: true
       run-shellcheck: true

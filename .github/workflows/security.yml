@@ -31,5 +31,5 @@ jobs:
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
     uses: singi0771/ci-standards/.github/workflows/security-reusable.yml@v2
     with:
-      scan-docker-image: true
+      scan-docker-image: false    # 暫關：同 ci.yml 的 Docker build
       run-zizmor: true
