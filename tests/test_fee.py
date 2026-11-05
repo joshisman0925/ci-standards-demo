@@ -18,3 +18,9 @@ def test_daily_cap():
 def test_negative_minutes_rejected():
     with pytest.raises(ValueError):
         parking_fee(-1)
+
+
+def test_custom_rate_formula():
+    from calc.fee import custom_rate_fee
+
+    assert custom_rate_fee(90, "minutes // 30 * 20") == 60
