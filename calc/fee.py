@@ -14,3 +14,8 @@ def parking_fee(minutes: int) -> int:
         return 0
     hours = math.ceil(minutes / 60)
     return min(hours * RATE_PER_HOUR, DAILY_CAP)
+
+
+def member_fee(minutes: int) -> int:
+    """會員停車費：一般費率打八折，四捨五入到整數元。"""
+    return round(parking_fee(minutes) * 0.8)
