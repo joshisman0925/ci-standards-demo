@@ -52,12 +52,12 @@ jobs:
     # 草稿 PR 先不跑（草稿本來就不能 merge），省 Actions 分鐘；
     # edited 事件只有在 base 分支被改掉時才跑
     if: ${{ github.event_name != 'pull_request' || (!github.event.pull_request.draft && (github.event.action != 'edited' || github.event.changes.base != null)) }}
-    uses: singi0771/ci-standards/.github/workflows/ci-reusable.yml@v2
+    uses: singi0771/ci-standards/.github/workflows/ci-reusable.yml@fix/docker-context-env
     with:
       run-python: true
       python-version: "3.12"
       run-dotnet: false
-      run-docker-build: false     # 暫關：公版 DOCKER_CONTEXT 環境變數與 Docker CLI 衝突，待公版修正後開回
-      run-hadolint: false
+      run-docker-build: true
+      run-hadolint: true
       run-actionlint: true
       run-shellcheck: true

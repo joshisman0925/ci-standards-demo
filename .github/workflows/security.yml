@@ -29,7 +29,7 @@ jobs:
   security:
     # 草稿 PR 先不跑（草稿本來就不能 merge），省 Actions 分鐘
     if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
-    uses: singi0771/ci-standards/.github/workflows/security-reusable.yml@v2
+    uses: singi0771/ci-standards/.github/workflows/security-reusable.yml@fix/docker-context-env
     with:
-      scan-docker-image: false    # 暫關：同 ci.yml 的 Docker build
+      scan-docker-image: true
       run-zizmor: true
