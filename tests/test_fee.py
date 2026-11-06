@@ -24,3 +24,21 @@ def test_custom_rate_formula():
     from calc.fee import custom_rate_fee
 
     assert custom_rate_fee(90, "minutes // 30 * 20") == 60
+
+
+@pytest.mark.parametrize(
+    "formula",
+    [
+        "__import__('os').system('echo pwned')",
+        "minutes.__class__",
+        "open('x')",
+        "minutes ** 1000000",
+        "1.5 * minutes",
+        "minutes /",
+    ],
+)
+def test_custom_rate_rejects_unsafe_formula(formula):
+    from calc.fee import custom_rate_fee
+
+    with pytest.raises(ValueError):
+        custom_rate_fee(90, formula)
