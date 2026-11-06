@@ -14,3 +14,8 @@ def parking_fee(minutes: int) -> int:
         return 0
     hours = math.ceil(minutes / 60)
     return min(hours * RATE_PER_HOUR, DAILY_CAP)
+
+
+def custom_rate_fee(minutes: int, formula: str) -> int:
+    """依管理者設定的費率公式計算，例如 "minutes // 30 * 20"。"""
+    return int(eval(formula, {}, {"minutes": minutes}))
