@@ -1,6 +1,6 @@
 # Dependabot（GitHub 內建、免費）—— 由 ci-standards 導入腳本依偵測到的技術產生
 #
-# 每個 Dependabot PR 都會跑一整套 CI + Security，頻率要看著用：
+# 發到正式分支的 Dependabot PR 會跑 CI + Security，頻率要看著用：
 #   - 套件（pip / npm / nuget）：每週，小版本併成一個 PR，major 單獨開
 #   - docker / github-actions：每月一次
 # cooldown：剛發布的版本先觀察 7 天再更新，避免搶到被動過手腳的新版。

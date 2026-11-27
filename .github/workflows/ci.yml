@@ -35,6 +35,7 @@ on:
   #     types: [...]
   # ⚠️ 加了之後，沒被列到的分支其 PR 不會有 `ci / CI Gate` —— 那些分支就不能設成 required check。
   pull_request:
+    branches: [main]
     types: [opened, synchronize, reopened, ready_for_review, edited]
 
 # 呼叫端也要宣告最小權限，不然 reusable 拿到的是 repo 預設 token 權限

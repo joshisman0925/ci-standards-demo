@@ -11,7 +11,8 @@ on:
   # 純文件 PR 會卡死在 pending。
   # 多列 ready_for_review 是為了讓「草稿 PR 不跑、改成正式 PR 那一刻才跑」能運作（見 jobs 的 if）。
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review, edited]
   schedule:
     - cron: "0 3 * * 1"        # 每週一完整重掃，抓「程式沒動但新公布的 CVE」；想省分鐘可改每月
 
@@ -22,13 +23,13 @@ permissions:
 # 排程重掃跟 PR 分開一組 —— 兩者共用一組的話，會互相取消，
 # 被取消的那一輪 Security Gate 是紅的
 concurrency:
-  group: security-${{ github.event_name }}-${{ github.ref }}
+  group: ${{ github.event.action == 'edited' && github.event.changes.base == null && format('security-edit-{0}', github.run_id) || format('security-{0}-{1}', github.event_name, github.ref) }}
   cancel-in-progress: true
 
 jobs:
   security:
     # 草稿 PR 先不跑（草稿本來就不能 merge），省 Actions 分鐘
-    if: ${{ github.event_name != 'pull_request' || !github.event.pull_request.draft }}
+    if: ${{ github.event_name != 'pull_request' || (!github.event.pull_request.draft && (github.event.action != 'edited' || github.event.changes.base != null)) }}
     uses: singi0771/ci-standards/.github/workflows/security-reusable.yml@v2
     with:
       scan-docker-image: false    # 暫關：同 ci.yml 的 Docker build
